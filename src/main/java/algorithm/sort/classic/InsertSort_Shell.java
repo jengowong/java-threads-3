@@ -31,27 +31,26 @@ public class InsertSort_Shell {
         arr[j] = tmp;
     }
 
-    public static int[] descendingSort(int[] arr) {
+    public static void descendingSort(int[] arr) {
         int gap = arr.length / 2;
         while (gap >= 1) {
             for (int i = gap; i < arr.length; i++) {
                 int j;
                 int temp = arr[i];
-                for (j = i - gap; j >= 0 && temp < arr[j]; j = j - gap) {
+                for (j = i - gap; j >= 0 && temp > arr[j]; j = j - gap) {
                     arr[j + gap] = arr[j];
                 }
                 arr[j + gap] = temp;
             }
             gap = gap / 2;
         }
-        return arr;
     }
 
     @Deprecated
     public static void main(String[] args) {
-        int[] unsortedArr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
-        int[] sortedArr = descendingSort(unsortedArr);
-        LOG.info("descendingArr={}", sortedArr);
+        int[] arr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
+        descendingSort(arr);
+        LOG.info("descendingArr={}", arr);
     }
 
 }

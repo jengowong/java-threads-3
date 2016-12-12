@@ -25,12 +25,12 @@ import org.slf4j.LoggerFactory;
 public class ExchangeSort_Quick {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeSort_Quick.class);
 
-    public static int[] descendingSort(int[] arr, int low, int high) {
-        if (low < high) {
+    public static void descendingSort(int[] arr, int idxLow, int idxHigh) {
+        if (idxLow < idxHigh) {
             //选第一个数作为基准
-            int pivot = arr[low];
-            int left = low;
-            int right = high;
+            int pivot = arr[idxLow];
+            int left = idxLow;
+            int right = idxHigh;
             while (left < right) {
                 while (left < right && arr[right] > pivot) {
                     right--;
@@ -42,17 +42,16 @@ public class ExchangeSort_Quick {
                 arr[right] = arr[left];
             }
             arr[left] = pivot;
-            descendingSort(arr, low, left - 1);
-            descendingSort(arr, right + 1, high);
+            descendingSort(arr, idxLow, left - 1);
+            descendingSort(arr, right + 1, idxHigh);
         }
-        return arr;
     }
 
     @Deprecated
     public static void main(String[] args) {
-        int[] unsortedArr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
-        int[] sortedArr = descendingSort(unsortedArr, 0, 9);
-        LOG.info("descendingArr={}", sortedArr);
+        int[] arr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
+        descendingSort(arr, 0, 9);
+        LOG.info("descendingArr={}", arr);
     }
 
 }

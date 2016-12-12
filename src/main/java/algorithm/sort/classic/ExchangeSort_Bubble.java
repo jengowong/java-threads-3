@@ -28,7 +28,7 @@ public class ExchangeSort_Bubble {
         arr[j] = tmp;
     }
 
-    public static int[] descendingSort(int[] arr) {
+    public static void descendingSort(int[] arr) {
         int length = arr.length;
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length - i - 1; j++) {
@@ -37,14 +37,13 @@ public class ExchangeSort_Bubble {
                 }
             }
         }
-        return arr;
     }
 
     @Deprecated
     public static void main(String[] args) {
         int[] unsortedArr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
-        int[] sortedArr = descendingSort(unsortedArr);
-        LOG.info("descendingArr={}", sortedArr);
+        descendingSort(unsortedArr);
+        LOG.info("descendingArr={}", unsortedArr);
     }
 
 }

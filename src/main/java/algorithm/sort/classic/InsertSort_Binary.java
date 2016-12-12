@@ -31,7 +31,7 @@ public class InsertSort_Binary {
         arr[j] = tmp;
     }
 
-    public static int[] descendingSort(int[] arr) {
+    public static void descendingSort(int[] arr) {
         int l, r, m;
 
         for (int i = 1; i < arr.length; i++) { //待排序的数
@@ -50,14 +50,13 @@ public class InsertSort_Binary {
                 swap(arr, j, j + 1);           //交换次数，用到了每一次的比较
             }
         }
-        return arr;
     }
 
     @Deprecated
     public static void main(String[] args) {
-        int[] unsortedArr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
-        int[] sortedArr = descendingSort(unsortedArr);
-        LOG.info("descendingArr={}", sortedArr);
+        int[] arr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
+        descendingSort(arr);
+        LOG.info("descendingArr={}", arr);
     }
 
 }
