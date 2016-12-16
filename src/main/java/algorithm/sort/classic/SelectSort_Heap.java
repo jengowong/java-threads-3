@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  *          也正是因为这样，
  *          树里面每个节点的子女和双亲节点的序号都可以根据当前节点的序号直接求出。
  *
- *          第一个节点编号为1时：
+ *          第一个节点编号为1时(广度遍历编号(下标))：
  *          Parent(i) = i/2
  *          Left(i)   = 2*i
  *          Right(i)  = 2*i+1
@@ -49,14 +49,24 @@ import org.slf4j.LoggerFactory;
  * 8   0             5   0             5   0             5   0             3   0             3   0             3   0
  *
  * 算法性能分析：
- * 时间复杂度在worst-case是O(NlogN)，average-case是O(NlogN)；
- * 空间复杂度在worst-case是O(1)，也就是说heapsort可以in-place实现；
- * heapsort不稳定。
+ * 时间复杂度 O(nlogn)，空间复杂度 O(1)。
+ * 从这一点就可以看出，堆排序在时间上类似归并，
+ * 但是它又是一种原地排序，空间复杂度小于归并的 O(n+logn)
  *
- * 由于最大堆或者最小堆是一颗完全二叉树，那么其算法复杂度应该为建树的复杂度，故为O(N*logN)
+ * 排序时间与输入无关，最好、最差、平均都是 O(nlogn)。不稳定。
  *
- * 堆排序和合并排序一样，是一种时间复杂度为O(N*logN)的算法，
- * 同时和插入排序一样，是一种就地排序算法(不需要额外的存储空间)。
+ * 堆排序借助了堆这个数据结构，
+ * 堆类似二叉树，又具有堆积的性质(子节点的关键值总小于/大于父节点)。
+ *
+ * 堆排序包括两个主要操作:
+ * 1.保持堆的性质 heapify(A,i)，时间复杂度 O(logn)
+ * 2.建堆 buildMaxHeap(A)，时间复杂度 O(n)，线性时间建堆
+ *
+ * 对于大数据的处理：
+ * 如果对100亿条数据选择 topk 数据，选择快速排序好还是堆排序好？
+ * 答案是只能用堆排序。
+ * 堆排序只需要维护一个 k 大小的空间，即在内存开辟 k 大小的空间。
+ * 而快速排序需要开辟能存储 100 亿条数据的空间，which is impossible。
  */
 public class SelectSort_Heap {
     private static final Logger LOG = LoggerFactory.getLogger(SelectSort_Heap.class);
@@ -67,36 +77,54 @@ public class SelectSort_Heap {
         arr[j] = tmp;
     }
 
-    public static void buildMaxHeap(int[] arr) {
-        int idxMax = arr.length - 1;
-
-        //从最后一个节点的父节点开始
-        for (int i = (idxMax - 1) / 2; i >= 0; i--) {
-            int k = i;//父节点
-            //如果当前节点的子节点存在
-            while (k * 2 + 1 <= idxMax) {
-                //左子节点
-                int leftIndex = 2 * k + 1;
-                if (leftIndex < idxMax) {
-                    //如果右子节点比较大
-                    if (arr[leftIndex] < arr[leftIndex + 1]) {
-                        leftIndex++;
-                    }
-                }
-                if (arr[k] < arr[leftIndex]) {
-                    swap(arr, k, leftIndex);
-                    k = leftIndex;
-                } else {
-                    break;
-                }
+    private static void heapify(int arr[], int idx, int heapSize) {
+        int idxSmallest = idx;
+        int idxLC = 2 * idx + 1;
+        int idxRC = 2 * idx + 2;
+        if (idxLC < heapSize) {
+            if (arr[idx] > arr[idxLC]) {
+                idxSmallest = idxLC;
+            } else {
+                idxSmallest = idx;
             }
+        }
+        if (idxRC < heapSize) {
+            if (arr[idxSmallest] > arr[idxRC]) {
+                idxSmallest = idxRC;
+            }
+        }
+        if (idxSmallest != idx) {
+            swap(arr, idx, idxSmallest);
+            heapify(arr, idxSmallest, heapSize);
+        }
+    }
+
+    private static void buildHeap(int arr[]) {
+        int idxNonleaf = arr.length / 2 - 1;
+
+        for (int i = idxNonleaf; i >= 0; i--) {
+            heapify(arr, i, arr.length);
+        }
+    }
+
+    public static void descendingSort(int arr[]) {
+        buildHeap(arr);
+
+        int heapSize = arr.length;
+        for (int i = 0; i < arr.length - 1; i++) {
+            //swap the first and the last
+            swap(arr, 0, heapSize - 1);
+
+            //heapify the array
+            heapSize--;
+            heapify(arr, 0, heapSize);
         }
     }
 
     @Deprecated
     public static void main(String[] args) {
-        int[] arr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
-        buildMaxHeap(arr);
+        int[] arr = new int[]{8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
+        descendingSort(arr);
         LOG.info("descendingArr={}", arr);
     }
 

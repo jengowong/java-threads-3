@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * ② 把左区作为一个整体，用①的步骤进行处理，右区进行相同的处理。(即递归)
  * ③ 重复第①、②步，直到左区处理完毕。
  *
- * l p                     r
+ * ..l.........p...........r
  * -------------------------
  * | | | | | | | | | | | | |
  * -------------------------
@@ -70,17 +70,18 @@ public class ExchangeSort_Quick {
             int valBase = arr[idxBeg]; //选第一个数作为基准
 
             while (idxL < idxR) {
-                while (idxL < idxR && valBase >= arr[idxR]) {
+                while (idxL < idxR && arr[idxR] <= valBase) {
                     idxR--;
                 }
-                arr[idxL] = arr[idxR]; //right side: find larger one than valBase
+                arr[idxL] = arr[idxR]; //将大的放在桩左边
 
-                while (idxL < idxR && valBase <= arr[idxL]) {
+                while (idxL < idxR && arr[idxL] > valBase) {
                     idxL++;
                 }
-                arr[idxR] = arr[idxL]; //left side: find smaller one than valBase
+                arr[idxR] = arr[idxL]; //将小的放在桩左边
             }
-            arr[idxL] = valBase;
+
+            arr[idxL] = valBase;       //打桩
 
             descendingSort(arr, idxBeg, idxL - 1);
             descendingSort(arr, idxR + 1, idxEnd);

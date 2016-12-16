@@ -19,6 +19,12 @@ import org.slf4j.LoggerFactory;
  * 算法性能分析：
  * 时间复杂度O(n^2)，空间复杂度O(1)，稳定，因为存在两两比较，不存在跳跃。
  * 排序时间与输入无关，最好，最差，平均都是O(n^2)
+ *
+ * 冒泡排序缺陷：
+ * 1.在排序过程中，执行完当前的第i趟排序后，可能数据已全部排序完备，
+ * ..但是程序无法判断是否完成排序，会继续执行剩下的(n-1-i)趟排序。
+ * ..解决方法：设置一个flag位，如果一趟无元素交换，则flag=0；以后再也不进入第二层循环。
+ * 2.当排序的数据比较多时排序的时间会明显延长，因为会比较 n*(n-1)/2 次。
  */
 public class ExchangeSort_Bubble {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeSort_Bubble.class);
