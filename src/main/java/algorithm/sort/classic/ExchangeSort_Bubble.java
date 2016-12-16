@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 交换排序(1)-->冒泡排序
+ * 交换排序(1)-->冒泡排序https://segmentfault.com/a/1190000002595152
  * <pre/>
  *
  * 基本思想：
@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
  * -------------------------
  *
  * 算法性能分析：
- * 很简单，2个循环O(n^2)
+ * 时间复杂度O(n^2)，空间复杂度O(1)，稳定，因为存在两两比较，不存在跳跃。
+ * 排序时间与输入无关，最好，最差，平均都是O(n^2)
  */
 public class ExchangeSort_Bubble {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeSort_Bubble.class);
@@ -29,11 +30,10 @@ public class ExchangeSort_Bubble {
     }
 
     public static void descendingSort(int[] arr) {
-        int length = arr.length;
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length - i - 1; j++) {
-                if (arr[j] < arr[j + 1]) {
-                    swap(arr, j, j + 1);
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = arr.length - 1; j >= i + 1; j--) {
+                if (arr[j] > arr[j - 1]) {
+                    swap(arr, j, j - 1);
                 }
             }
         }
@@ -41,7 +41,7 @@ public class ExchangeSort_Bubble {
 
     @Deprecated
     public static void main(String[] args) {
-        int[] unsortedArr = new int[]{57, 68, 59, 52, 44, 49, 29, 37, 8, 16};
+        int[] unsortedArr = new int[]{8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
         descendingSort(unsortedArr);
         LOG.info("descendingArr={}", unsortedArr);
     }
