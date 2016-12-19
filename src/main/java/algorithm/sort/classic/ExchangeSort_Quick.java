@@ -67,7 +67,7 @@ public class ExchangeSort_Quick {
             int idxL = idxBeg;
             int idxR = idxEnd;
 
-            int valBase = arr[idxBeg]; //选第一个数作为基准
+            int valBase = arr[idxBeg]; //选第一个数作为基准(桩)
 
             while (idxL < idxR) {
                 while (idxL < idxR && arr[idxR] <= valBase) {
