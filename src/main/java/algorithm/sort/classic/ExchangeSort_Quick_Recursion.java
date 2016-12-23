@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 交换排序(2)-->快速排序
+ * 交换排序(2)-->快速排序(递归)
  * <pre/>
  *
  * 快速排序是对冒泡排序的一种改进，由C.A.R.Hoare在1962年提出。
@@ -59,29 +59,36 @@ import org.slf4j.LoggerFactory;
  * 因此快速排序的最差时间复杂度和冒泡排序是一样的都是 O(n^2)，它的平均时间复杂度为 O(nlogn)。
  * 其实快速排序是基于“二分”的思想。
  */
-public class ExchangeSort_Quick {
-    private static final Logger LOG = LoggerFactory.getLogger(ExchangeSort_Quick.class);
+public class ExchangeSort_Quick_Recursion {
+    private static final Logger LOG = LoggerFactory.getLogger(ExchangeSort_Quick_Recursion.class);
 
     public static void descendingSort(int[] arr, int idxBeg, int idxEnd) {
         if (idxBeg < idxEnd) {
             int idxL = idxBeg;
             int idxR = idxEnd;
 
-            int valBase = arr[idxBeg]; //选第一个数作为基准(桩)
+            int valPivot = arr[idxBeg];    //选第一个数作为基准(桩)
 
             while (idxL < idxR) {
-                while (idxL < idxR && arr[idxR] <= valBase) {
+                //首先从右边向左边扫描找到一个大于valPivot的元素
+                while (idxL < idxR && arr[idxR] <= valPivot) {
                     idxR--;
                 }
-                arr[idxL] = arr[idxR]; //将大的放在桩左边
-
-                while (idxL < idxR && arr[idxL] > valBase) {
+                if (idxL < idxR) {
+                    arr[idxL] = arr[idxR]; //将大的放在桩左边
+                    idxL++;                //赋值后就应该将idxL+1指向后一个序号
+                }
+                //然后从左边向右边扫描找到一个小于valPivot的元素
+                while (idxL < idxR && arr[idxL] > valPivot) {
                     idxL++;
                 }
-                arr[idxR] = arr[idxL]; //将小的放在桩左边
+                if (idxL < idxR) {
+                    arr[idxR] = arr[idxL]; //将小的放在桩左边
+                    idxR--;                //赋值后就应该将idxR-1指向前一个序号
+                }
             }
 
-            arr[idxL] = valBase;       //打桩
+            arr[idxL] = valPivot;          //打桩
 
             descendingSort(arr, idxBeg, idxL - 1);
             descendingSort(arr, idxR + 1, idxEnd);

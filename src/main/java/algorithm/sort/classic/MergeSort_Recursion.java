@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 归并排序
+ * 归并排序(递归)
  * <pre/>
  *
  * 基本思想：
@@ -35,8 +35,8 @@ import org.slf4j.LoggerFactory;
  *
  * 速度仅次于快速排序，一般用于对总体无序，但是各子项相对有序的数列。
  */
-public class MergeSort {
-    private static final Logger LOG = LoggerFactory.getLogger(MergeSort.class);
+public class MergeSort_Recursion {
+    private static final Logger LOG = LoggerFactory.getLogger(MergeSort_Recursion.class);
 
     private static void merge(int[] arr, int idxBeg, int idxMid, int idxEnd) {
         int[] tmpArr = new int[arr.length]; //只用到了某一段

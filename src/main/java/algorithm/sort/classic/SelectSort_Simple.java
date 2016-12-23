@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
  * 选择排序(1)-->简单选择排序
  * <pre/>
  *
+ * https://www.zybuluo.com/frankstar/note/447336
+ *
  * 基本思想：
  * 每趟从待排序的记录中选出关键字最小的记录，
  * 顺序放在已排序的记录序列末尾，直到全部排序结束为止。
@@ -20,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * 算法性能分析：
  * 简单选择排序的比较次数与序列的初始排序无关。
- * 假设待排序的序列有 N 个元素，则比较次数总是 n(n-1)/2。
+ * 假设待排序的序列有 n 个元素，则比较次数总是 n(n-1)/2。
  * 而移动次数与序列的初始排序有关。当序列正序时，移动次数最少，为0。
  * 当序列反序时，移动次数最多，为 3n(n-1)/2。
  * 所以，综合以上，简单排序的时间复杂度为 O(n^2)。
@@ -36,14 +38,14 @@ public class SelectSort_Simple {
 
     public static void descendingSort(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {     //按位置顺序插入值
-            int k = i;
-            for (int j = i + 1; j < arr.length; j++) { //最小数候选集
-                if (arr[j] > arr[k]) {
-                    k = j;
+            int idxMaxVal = i;
+            for (int j = i + 1; j < arr.length; j++) { //最大数候选集
+                if (arr[j] > arr[idxMaxVal]) {
+                    idxMaxVal = j;
                 }
             }
-            if (k != i) {
-                swap(arr, i, k);
+            if (idxMaxVal != i) {
+                swap(arr, i, idxMaxVal);
             }
         }
     }
