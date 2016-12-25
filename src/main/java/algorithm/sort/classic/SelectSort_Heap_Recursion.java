@@ -89,52 +89,57 @@ public class SelectSort_Heap_Recursion {
      *
      * @param arr        数组形式的堆
      * @param idxNonleaf 非叶子节点位置
-     * @param heapSize   堆大小
+     * @param idxMax     heapSize - 1
      */
-    private static void minHeapify(int arr[], int idxNonleaf, int heapSize) {
+    private static void minHeapify(int arr[], int idxNonleaf, int idxMax) {
         int idxL = 2 * idxNonleaf + 1; //left child node
         int idxR = 2 * idxNonleaf + 2; //right child node
         int idxSmallest = idxNonleaf;  //最终指向三者中的最小值
-        if (idxL < heapSize) {
+        if (idxL <= idxMax) {
             if (arr[idxSmallest] > arr[idxL]) {
-                idxSmallest = idxL; //如果大于左子节点，则idxSmallest指向idxL
+                idxSmallest = idxL;    //如果大于左子节点，则idxSmallest指向idxL
             }
         }
-        if (idxR < heapSize) {
+        if (idxR <= idxMax) {
             if (arr[idxSmallest] > arr[idxR]) {
-                idxSmallest = idxR; //如果大于右子节点，则idxSmallest指向idxL
+                idxSmallest = idxR;    //如果大于右子节点，则idxSmallest指向idxL
             }
         }
         if (idxSmallest != idxNonleaf) {
             swap(arr, idxNonleaf, idxSmallest);
-            minHeapify(arr, idxSmallest, heapSize); //递归调整父节点变了的堆
+            minHeapify(arr, idxSmallest, idxMax); //**负责非叶节点的正序处理
+        }
+    }
+
+    private static void buildMinHeap(int arr[], int idxMax) {
+        int idxLastNonleaf = (idxMax - 1) / 2;
+        for (int i = idxLastNonleaf; i >= 0; i--) {
+            minHeapify(arr, i, idxMax);
         }
     }
 
     public static void descendingSort(int arr[]) {
-        //1 求堆大小
-        int heapSize = arr.length;
+        //1 求堆大小 - 1
+        int idxMax = arr.length - 1;
 
         //2 首次建堆
-        int idxLastNonleaf = heapSize / 2 - 1;
-        for (int i = idxLastNonleaf; i >= 0; i--) {
-            minHeapify(arr, i, heapSize);
-        }
+        buildMinHeap(arr, idxMax);
 
         //3 选择排序
         for (int i = 0; i < arr.length - 1; i++) {
             //3.1 将堆化选择出的最小值放在堆最后
-            swap(arr, 0, heapSize - 1);
+            swap(arr, 0, idxMax);
             //3.2 缩小堆范围
-            heapSize--;
+            idxMax--;
             //3.3 堆化缩小的堆
-            minHeapify(arr, 0, heapSize);
+            minHeapify(arr, 0, idxMax);
         }
     }
 
     @Deprecated
     public static void main(String[] args) {
-        int[] arr = new int[]{8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
+        //int[] arr = new int[]{8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
+        int[] arr = {1, 3, 4, 5, 7, 2, 6, 8, 0};
         LOG.info("before sort: {}", arr);
         descendingSort(arr);
         LOG.info("after  sort: {}", arr);

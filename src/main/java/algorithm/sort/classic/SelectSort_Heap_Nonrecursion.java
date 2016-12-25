@@ -34,9 +34,9 @@ public class SelectSort_Heap_Nonrecursion {
      */
     private static void maxHeapify(int[] arr, int idxMax) {
         int idxLastNonleaf = (idxMax - 1) / 2;               //从最后一个节点的父节点开始
-        for (int idxNonleaf = idxLastNonleaf; idxNonleaf >= 0; idxNonleaf--) {
+        for (int idxNonleaf = idxLastNonleaf; idxNonleaf >= 0; idxNonleaf--) {      //**负责非叶节点的倒序处理
             int idxParent = idxNonleaf;                      //当前节点
-            while ((2 * idxParent + 1) <= idxMax) {          //如果当前节点的子节点存在
+            while ((2 * idxParent + 1) <= idxMax) {          //如果当前节点的子节点存在  //**负责非叶节点的正序处理
                 int idxChild = 2 * idxParent + 1;            //"左"子节点
                 if (idxChild < idxMax) {                     //注意此处没有等号
                     if (arr[idxChild] < arr[idxChild + 1]) { //如果"右"子节点比较大
@@ -54,9 +54,9 @@ public class SelectSort_Heap_Nonrecursion {
     }
 
     public static void ascendingSort(int arr[]) {
-        for (int heapSize = arr.length; heapSize > 0; heapSize--) {
-            maxHeapify(arr, heapSize - 1);
-            swap(arr, 0, heapSize - 1);
+        for (int idxMax = arr.length - 1; idxMax >= 0; idxMax--) {
+            maxHeapify(arr, idxMax);
+            swap(arr, 0, idxMax);
         }
     }
 
