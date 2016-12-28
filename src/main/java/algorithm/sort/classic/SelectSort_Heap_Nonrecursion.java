@@ -65,8 +65,6 @@ public class SelectSort_Heap_Nonrecursion {
         //int[] arr = {8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
         int[] arr = {1, 3, 4, 5, 7, 2, 6, 8, 0};
         LOG.info("before sort: {}", arr);
-        maxHeapify(arr, arr.length - 1);
-        LOG.info("maxHeapify : {}", arr);
         ascendingSort(arr);
         LOG.info("after  sort: {}", arr);
     }

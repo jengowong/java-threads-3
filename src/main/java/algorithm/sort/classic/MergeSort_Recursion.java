@@ -42,8 +42,8 @@ public class MergeSort_Recursion {
         int[] tmpArr = new int[arr.length]; //只用到了某一段
         int idxT = idxBeg;
 
-        int idxL1 = idxBeg;
-        int idxL2 = idxMid + 1;
+        int idxL1 = idxBeg;     //前半段开始索引
+        int idxL2 = idxMid + 1; //后半段开始索引
 
         //逐个归并
         while (idxL1 <= idxMid && idxL2 <= idxEnd) {
@@ -81,9 +81,12 @@ public class MergeSort_Recursion {
 
     @Deprecated
     public static void main(String[] args) {
-        int[] unsortedArr = new int[]{8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
-        descendingSort(unsortedArr, 0, unsortedArr.length - 1);
-        LOG.info("descendingArr={}", unsortedArr);
+        //int[] arr = new int[]{8, 16, 29, 37, 44, 44, 49, 52, 57, 59, 68};
+        //int[] arr = {1, 3, 4, 5, 7, 2, 6, 8, 0};
+        int[] arr = {3};
+        LOG.info("before sort: {}", arr);
+        descendingSort(arr, 0, arr.length - 1);
+        LOG.info("after  sort: {}", arr);
     }
 
 }
