@@ -159,6 +159,8 @@ public class Heap<T> {
         System.out.println();
 
         System.out.println(5 >>> 1);
+
+        System.out.println(heap.parent(0));
     }
 
 }
