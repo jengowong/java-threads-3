@@ -1,13 +1,12 @@
 package algorithm.hash;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 常见Hash算法的原理
  */
+@Slf4j
 public class CommonHash {
-    private static final Logger LOG = LoggerFactory.getLogger(CommonHash.class);
 
     /**
      * 01.加法Hash
@@ -20,8 +19,8 @@ public class CommonHash {
      * @return 结果的值域为[0, prime-1]
      */
     public static int additiveHash(String key, int prime) {
-        int hash, i;
-        for (hash = key.length(), i = 0; i < key.length(); i++) {
+        int hash = key.length();
+        for (int i = 0; i < key.length(); i++) {
             hash += key.charAt(i);
         }
         return (hash % prime);
@@ -39,8 +38,8 @@ public class CommonHash {
      * @return 结果的值域为[0, prime-1]
      */
     public static int rotatingHash(String key, int prime) {
-        int hash, i;
-        for (hash = key.length(), i = 0; i < key.length(); i++) {
+        int hash = key.length();
+        for (int i = 0; i < key.length(); i++) {
             //1
             hash = (hash << 4) ^ (hash >> 28) ^ key.charAt(i);
             //2
@@ -88,7 +87,6 @@ public class CommonHash {
     }
 
 
-
     /**
      * 测试位运算符
      */
@@ -96,45 +94,45 @@ public class CommonHash {
         // 1、左移( << )
         // 0000 0000 0000 0000 0000 0000 0000 0101 然后左移2位后，低位补0：//
         // 0000 0000 0000 0000 0000 0000 0001 0100 换算成10进制为20
-        LOG.info("(5 << 2) = {}", 5 << 2); // 运行结果是20
+        log.info("(5 << 2) = {}", 5 << 2); // 运行结果是20
 
         // 2、右移( >> ) 高位补符号位
         // 0000 0000 0000 0000 0000 0000 0000 0101 然后右移2位，高位补0：
         // 0000 0000 0000 0000 0000 0000 0000 0001
-        LOG.info("(5 >> 2) = {}", 5 >> 2); // 运行结果是1
+        log.info("(5 >> 2) = {}", 5 >> 2); // 运行结果是1
 
         // 3、无符号右移( >>> ) 高位补0
         // 例如 -5换算成二进制后为：0101 取反加1为1011
         // 1111 1111 1111 1111 1111 1111 1111 1011
         // 我们分别对5进行右移3位、 -5进行右移3位和无符号右移3位：
-        LOG.info("(5 >> 3) = {}", 5 >> 3);     // 结果是0
-        LOG.info("(-5 >> 3) = {}", -5 >> 3);   // 结果是-1
-        LOG.info("(-5 >>> 3) = {}", -5 >>> 3); // 结果是536870911
+        log.info("(5 >> 3) = {}", 5 >> 3);     // 结果是0
+        log.info("(-5 >> 3) = {}", -5 >> 3);   // 结果是-1
+        log.info("(-5 >>> 3) = {}", -5 >>> 3); // 结果是536870911
 
         // 4、位与( & )
         // 位与：第一个操作数的的第n位于第二个操作数的第n位如果都是1，那么结果的第n为也为1，否则为0
-        LOG.info("(5 & 3) = {}", 5 & 3); // 结果为1
-        LOG.info("(4 & 1) = {}", 4 & 1); // 结果为0
+        log.info("(5 & 3) = {}", 5 & 3); // 结果为1
+        log.info("(4 & 1) = {}", 4 & 1); // 结果为0
 
         // 5、位或( | )
         // 第一个操作数的的第n位于第二个操作数的第n位 只要有一个是1，那么结果的第n为也为1，否则为0
-        LOG.info("(5 | 3) = {}", 5 | 3); // 结果为7
+        log.info("(5 | 3) = {}", 5 | 3); // 结果为7
 
         // 6、位异或( ^ )
         // 第一个操作数的的第n位于第二个操作数的第n位 相反，那么结果的第n为也为1，否则为0
-        LOG.info("(5 ^ 3) = {}", 5 ^ 3); //结果为6
+        log.info("(5 ^ 3) = {}", 5 ^ 3); //结果为6
 
         // 7、位非( ~ )
         // 操作数的第n位为1，那么结果的第n位为0，反之。
-        LOG.info("(~5) = {}", ~5);// 结果为-6
+        log.info("(~5) = {}", ~5);// 结果为-6
 
         int a;
         a = 0xfffffffb;
-        LOG.info("(0xfffffffb) = {}", a);
+        log.info("(0xfffffffb) = {}", a);
         a = 0x1fffffff;
-        LOG.info("(0x1fffffff) = {}", a);
+        log.info("(0x1fffffff) = {}", a);
         a = 0xffffffff;
-        LOG.info("(0xffffffff) = {}", a);
+        log.info("(0xffffffff) = {}", a);
     }
 
     @Deprecated

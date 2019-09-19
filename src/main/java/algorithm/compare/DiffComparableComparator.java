@@ -1,12 +1,11 @@
 package algorithm.compare;
 
 import com.google.common.collect.Lists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * {@link Comparable}和{@link Comparator}的比较程序。
@@ -60,29 +59,29 @@ import java.util.Comparator;
  * 一个类本身实现了{@link Comparable}比较器，就意味着它本身支持排序；
  * 若它本身没实现{@link Comparable}，也可以通过外部比较器{@link Comparator}进行排序。
  */
+@Slf4j
 public class DiffComparableComparator {
-    private static final Logger LOG = LoggerFactory.getLogger(DiffComparableComparator.class);
 
     public static void main(String[] args) {
-        ArrayList<Person> list = Lists.newArrayList();
+        List<Person> list = Lists.newArrayList();
         list.add(new Person("ccc", 20));
         list.add(new Person("AAA", 30));
         list.add(new Person("bbb", 10));
         list.add(new Person("ddd", 40));
 
-        LOG.info("Original  sort, list:{}", list);
+        log.info("Original  sort, list:{}", list);
 
         //根据“Person实现的Comparable<String>接口”进行排序，即会根据“name”进行排序
         Collections.sort(list);
-        LOG.info("Name      sort, list:{}", list);
+        log.info("Name      sort, list:{}", list);
 
         //通过“比较器(AscAgeComparator)”，根据“age”的升序排序
         Collections.sort(list, new AscAgeComparator());
-        LOG.info("Asc(age)  sort, list:{}", list);
+        log.info("Asc(age)  sort, list:{}", list);
 
         //通过“比较器(DescAgeComparator)”，根据“age”的降序排序
         Collections.sort(list, new DescAgeComparator());
-        LOG.info("Desc(age) sort, list:{}", list);
+        log.info("Desc(age) sort, list:{}", list);
 
         //判断两个person是否相等
         testEquals();

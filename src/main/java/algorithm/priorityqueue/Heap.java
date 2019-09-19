@@ -1,4 +1,4 @@
-package priorityqueue;
+package algorithm.priorityqueue;
 
 import java.util.Comparator;
 
@@ -117,7 +117,7 @@ public class Heap<T> {
     }
 
     /**
-     * 创建堆
+     * 构建二叉堆，也就是把一个无序的完全二叉树调整为二叉堆，本质上就是让所有"非叶子节点"依次下沉。
      */
     private void buildHeap() {
         for (int i = (a.length >>> 1) - 1; i >= 0; i--) { //-1是因为idx从0开始

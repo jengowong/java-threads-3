@@ -1,4 +1,4 @@
-package priorityqueue;
+package algorithm.priorityqueue;
 
 import java.util.Comparator;
 

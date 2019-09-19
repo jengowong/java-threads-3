@@ -14,6 +14,8 @@ import java.util.List;
  * {@link Test}
  *
  * http://tutorials.jenkov.com/java-reflection/index.html
+ *
+ * http://www.cnblogs.com/yangming1996/p/9221593.html
  */
 public class Test {
 
