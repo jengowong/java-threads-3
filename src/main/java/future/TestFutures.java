@@ -109,7 +109,6 @@ public class TestFutures {
 
         // case2: thenRunAsync，另启动线程执行
         future.thenRunAsync(new Runnable() {
-
             @Override
             public void run() {
                 LOG.info("Run async action.");
